@@ -50,12 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
 
-        //初始化
-        if (OpenCVLoader.initDebug()) {
-            LogUtils.e("success");
-        }else  {
-            LogUtils.e("fail");
-        }
+
     }
 
     private void initView() {
@@ -84,11 +79,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case  R.id.btn_add_watermark:
                 LogUtils.i("Add Water Mark");
+                //初始化
+                if (OpenCVLoader.initDebug()) {
+                    LogUtils.i("success");
+                }else  {
+                    LogUtils.e("fail");
+                }
                 addWaterMark();
 //                convert2Grey();
                 break;
 
             case R.id.btn_getBlindWaterMark:
+                if (OpenCVLoader.initDebug()) {
+                    LogUtils.i("success");
+                }else  {
+                    LogUtils.e("fail");
+                }
                 LogUtils.i("Get Water Mark");
 //                getWatermark();
                 extractWaterMark();
@@ -142,6 +148,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void extractWaterMark() {
         try {
+
+            File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "AddedWaterMark");
+            if ((root.exists() || root.mkdir()) && root.isDirectory()) {
+                filePath = root.getAbsolutePath();
+                LogUtils.e(filePath);
+            }
 //            Bitmap bitmap = BitmapFactory.decodeFile(path);
             Bitmap bitmap =ImgUtils.drawableToBitmap(iv_picture.getDrawable());
 //            Bitmap bitmap = ImgUtils.drawableToBitmap(getResources().getDrawable(R.drawable.b));

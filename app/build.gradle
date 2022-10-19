@@ -47,7 +47,7 @@ dependencies {
     // import OpenCV Lib
     implementation project(':openCVLibrary341')
 
-    implementation fileTree(dir: "$buildDir/native-libs", include: 'native-libs.jar')
+//    implementation fileTree(dir: "$buildDir/native-libs", include: 'native-libs.jar')
     //Glide
     api 'com.github.bumptech.glide:glide:4.14.2'
     //utilcode
@@ -57,8 +57,8 @@ dependencies {
 //以下很重要
 //将添加的.so文件，打包成jar
 task nativeLibsToJar(type: Jar, description: 'create a jar archive of the native libs') {
-    destinationDir file("$buildDir/native-libs")
-    baseName 'native-libs'
+    destinationDir file("$buildDir")
+    baseName 'libs'
     from fileTree(dir: 'libs', include: '**/*.so')
     into 'lib/'
 }

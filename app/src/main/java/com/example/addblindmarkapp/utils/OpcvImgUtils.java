@@ -44,6 +44,7 @@ public class OpcvImgUtils {
 //        Mat padded = optimizeImageDim(image);
         Mat padded = splitSrc(image);
         padded.convertTo(padded, CvType.CV_32F);
+        planes = new ArrayList<>();
         planes.add(padded);
         planes.add(Mat.zeros(padded.size(), CvType.CV_32F));
         Core.merge(planes, complexImage);
@@ -64,20 +65,20 @@ public class OpcvImgUtils {
         return antitransformImage(complexImage, allPlanes);
     }
 
-   
-     /**
-      *  
-      * @ProjectName:    获取图片水印
-      * @Package:        
-      * @ClassName:      
-      * @Description:    java类作用描述
-      * @Author:         jack
-      * @CreateDate:      
-      * @UpdateUser:     更新者
-      * @UpdateDate:      
-      * @UpdateRemark:   更新内容
-      * @Version:        1.0
-      */
+
+    /**
+     *
+     * @ProjectName:    获取图片水印
+     * @Package:
+     * @ClassName:
+     * @Description:    java类作用描述
+     * @Author:         jack
+     * @CreateDate:
+     * @UpdateUser:     更新者
+     * @UpdateDate:
+     * @UpdateRemark:   更新内容
+     * @Version:        1.0
+     */
     public static Mat getImageWatermarkWithText(Mat image){
         List<Mat> planes = new ArrayList<Mat>();
         Mat complexImage = new Mat();
@@ -92,7 +93,7 @@ public class OpcvImgUtils {
         planes.clear();
         return magnitude;
     }
-    
+
     private static Mat splitSrc(Mat mat) {
         mat = optimizeImageDim(mat);
         Core.split(mat, allPlanes);
@@ -125,19 +126,19 @@ public class OpcvImgUtils {
         return lastImage;
     }
 
-     /**
-      *
-      * @ProjectName:    为加快傅里叶变换的速度，对要处理的图片尺寸进行优化
-      * @Package:
-      * @ClassName:
-      * @Description:    java类作用描述
-      * @Author:         jack
-      * @CreateDate:
-      * @UpdateUser:     更新者
-      * @UpdateDate:
-      * @UpdateRemark:   更新内容
-      * @Version:        1.0
-      */
+    /**
+     *
+     * @ProjectName:    为加快傅里叶变换的速度，对要处理的图片尺寸进行优化
+     * @Package:
+     * @ClassName:
+     * @Description:    java类作用描述
+     * @Author:         jack
+     * @CreateDate:
+     * @UpdateUser:     更新者
+     * @UpdateDate:
+     * @UpdateRemark:   更新内容
+     * @Version:        1.0
+     */
     private static Mat optimizeImageDim(Mat image) {
         Mat padded = new Mat();
         int addPixelRows = Core.getOptimalDFTSize(image.rows());
